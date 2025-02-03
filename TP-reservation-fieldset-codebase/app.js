@@ -164,7 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
+        select.addEventListener("change", handleDateChange);
     });
 
-
+    updateAddButton();
 });
