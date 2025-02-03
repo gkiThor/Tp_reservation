@@ -66,6 +66,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Gère les changements de sélection de date, en mettant à jour selectedDates et les autres select.
+    function handleDateChange(event) {
+
+        let select = event.target;
+        let previousValue = select.dataset.previousValue || null;
+
+        if (previousValue) selectedDates.delete(previousValue);
+        let newValue = select.value;
+        if (newValue) selectedDates.add(newValue);
+        select.dataset.previousValue = newValue;
+        updateAllSelects();
+        updateAddButton();
+    }
+
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
     });
