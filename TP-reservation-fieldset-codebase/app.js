@@ -17,4 +17,35 @@ let datesToDisplay = [
     { value: "2024-01-27" },
 ];
 
+let selectedDates = new Set();
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector("form");
+    const addButton = document.getElementById("add");
+
+    function completeDates(select, currentValue = null) {
+
+        select.innerHTML = "<option value='' selected disabled>!-- Sélectionnez une date --!</option>";
+    
+        datesToDisplay.forEach(dateObj => {
+            if (!selectedDates.has(dateObj.value) || dateObj.value === currentValue) {
+                let option = document.createElement("option");
+                option.value = dateObj.value;
+                option.textContent = new Date(dateObj.value).toLocaleDateString("fr-FR");
+                select.appendChild(option);
+            }
+        });
+
+        // Désactiver si aucune date dispo
+        select.disabled = select.options.length <= 1; 
+
+        if (currentValue) select.value = currentValue;
+    }
+
+    document.querySelectorAll(".date").forEach(select => {
+        completeDates(select);
+    });
+
+
+});
