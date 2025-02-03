@@ -112,6 +112,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Ajoute un nouvel ensemble de champs de réservation et configure les événements associés
+    function addReservation() {
+
+        reservationCount++;
+        let newReservation = document.createElement("fieldset");
+
+        newReservation.className = "fieldset";
+        newReservation.innerHTML = `
+            <legend>Réservation ${reservationCount}</legend>
+            <div class="form-group row">
+                <div class="col-sm-4"><label>Date :</label></div>
+                <div class="col-sm-8">
+                    <select class="date form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4"><label>Nombre de places :</label></div>
+                <div class="col-sm-8">
+                    <input type="number" class="quantite form-control" value="1" min="1"/>
+                    <div class="error-message text-danger"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger remove">Supprimer</button>
+        `;
+
+        form.insertBefore(newReservation, addButton);
+        let newSelect = newReservation.querySelector(".date");
+        completeDates(newSelect);
+        newSelect.addEventListener("change", handleDateChange);
+
+        newReservation.querySelector(".remove").addEventListener("click", function () {
+            selectedDates.delete(newSelect.value);
+            newReservation.remove();
+            reservationCount--;
+            updateAllSelects();
+            updateAddButton();
+        });
+
+        updateAddButton();
+    }
+
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
     });
