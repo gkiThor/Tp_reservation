@@ -58,6 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    // Met à jour tous les select et les dates disponibles.
+    function updateAllSelects() {
+        document.querySelectorAll(".date").forEach(select => {
+            let currentValue = select.value;
+            completeDates(select, currentValue);
+        });
+    }
+
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
     });
