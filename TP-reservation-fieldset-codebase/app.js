@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
     const addButton = document.getElementById("add");
 
+
+    // Rempli le select dynamiquement 
     function completeDates(select, currentValue = null) {
 
         select.innerHTML = "<option value='' selected disabled>!-- Sélectionnez une date --!</option>";
@@ -41,6 +43,19 @@ document.addEventListener("DOMContentLoaded", function () {
         select.disabled = select.options.length <= 1; 
 
         if (currentValue) select.value = currentValue;
+    }
+
+    // Met à jour l'état du bouton "Ajouter" en fonction des réservations actuelles et des dates sélectionnées.
+    function updateAddButton() {
+        
+        let allDatesSelected = Array.from(document.querySelectorAll(".date")).every(select => select.value !== "");
+
+        addButton.classList.toggle("disabled", 
+            // Désactiver si au moins une réservation n'a pas de date sélectionnée
+            reservationCount >= maxReservations || 
+            selectedDates.size >= datesToDisplay.length || 
+            !allDatesSelected 
+        );
     }
 
     document.querySelectorAll(".date").forEach(select => {
