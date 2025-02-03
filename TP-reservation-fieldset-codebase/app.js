@@ -18,6 +18,8 @@ let datesToDisplay = [
 ];
 
 let selectedDates = new Set();
+const maxReservations = datesToDisplay.length;
+let reservationCount = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
 
