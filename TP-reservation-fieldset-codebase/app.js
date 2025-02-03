@@ -80,6 +80,38 @@ document.addEventListener("DOMContentLoaded", function () {
         updateAddButton();
     }
 
+    // Valide le formulaire avant de l'envoyer, vérifie les quantités et affiche des messages d'erreur si nécessaire
+    function validateForm(event) {
+
+        let isValid = true;
+
+        document.querySelectorAll(".quantite").forEach(input => {
+            let errorDiv = input.nextElementSibling;
+
+            if (!errorDiv || !errorDiv.classList.contains("error-message")) {
+                errorDiv = document.createElement("div");
+                errorDiv.className = "error-message text-danger";
+                input.parentNode.appendChild(errorDiv);
+            }
+
+            if (input.value < 1 || input.value === "") {
+                errorDiv.textContent = "Veuillez entrer un nombre valide (minimum 1).";
+                isValid = false;
+            } else {
+                errorDiv.textContent = "";
+            }
+        });
+
+        if (selectedDates.size === 0) {
+            alert("Veuillez ajouter au moins une réservation valide avant d'envoyer le formulaire.");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    }
+
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
     });
