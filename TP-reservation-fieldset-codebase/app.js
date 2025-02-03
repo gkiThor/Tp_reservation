@@ -153,6 +153,15 @@ document.addEventListener("DOMContentLoaded", function () {
         updateAddButton();
     }
 
+    addButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (!addButton.classList.contains("disabled")) {
+            addReservation();
+        }
+    });
+
+    form.addEventListener("submit", validateForm);
+
     document.querySelectorAll(".date").forEach(select => {
         completeDates(select);
     });
