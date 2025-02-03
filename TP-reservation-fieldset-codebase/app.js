@@ -95,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Valide le formulaire avant de l'envoyer, vérifie les quantités et affiche des messages d'erreur si nécessaire
     function validateForm(event) {
 
+        console.log("Appel de la fonction de validation");
+
         let isValid = true;
 
         document.querySelectorAll(".quantite").forEach(input => {
@@ -156,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let newSelect = newReservation.querySelector(".date");
 
         completeDates(newSelect);
-        
+
         newSelect.addEventListener("change", handleDateChange);
 
         newReservation.querySelector(".remove").addEventListener("click", function () {
@@ -173,6 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (!addButton.classList.contains("disabled")) {
+
+            console.log("Bouton ajouter actif");
             addReservation();
         }
     });
