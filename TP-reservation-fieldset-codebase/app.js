@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Rempli le select dynamiquement 
     function completeDates(select, currentValue = null) {
 
+        console.log("Appel de la fonction completeDates");
+
         select.innerHTML = "<option value='' selected disabled>!-- Sélectionnez une date --!</option>";
     
         datesToDisplay.forEach(dateObj => {
@@ -45,11 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
         select.disabled = select.options.length <= 1; 
 
         if (currentValue) select.value = currentValue;
+        
     }
 
     // Met à jour l'état du bouton "Ajouter" en fonction des réservations actuelles et des dates sélectionnées.
     function updateAddButton() {
-        
+
+        console.log("Appel de la fonction updateAddButton");
+
         let allDatesSelected = Array.from(document.querySelectorAll(".date")).every(select => select.value !== "");
 
         addButton.classList.toggle("disabled", 
@@ -62,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Met à jour tous les select et les dates disponibles.
     function updateAllSelects() {
+
+        console.log("Appel de la fonction upDateAllSelects");
+
         document.querySelectorAll(".date").forEach(select => {
             let currentValue = select.value;
             completeDates(select, currentValue);
@@ -70,6 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Gère les changements de sélection de date, en mettant à jour selectedDates et les autres select.
     function handleDateChange(event) {
+
+        console.log("Evenements Select changement de date");
 
         let select = event.target;
         let previousValue = select.dataset.previousValue || null;
@@ -117,6 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ajoute un nouvel ensemble de champs de réservation et configure les événements associés
     function addReservation() {
 
+        console.log("Ajoute une réservation");
+
         reservationCount++;
         let newReservation = document.createElement("fieldset");
 
@@ -140,8 +152,11 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         form.insertBefore(newReservation, addButton);
+
         let newSelect = newReservation.querySelector(".date");
+
         completeDates(newSelect);
+        
         newSelect.addEventListener("change", handleDateChange);
 
         newReservation.querySelector(".remove").addEventListener("click", function () {
